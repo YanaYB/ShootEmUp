@@ -11,6 +11,9 @@ public class Spawn : MonoBehaviour
     private int bossCounter = 0; // Счетчик боссов
     public GameObject heartPrefab;
 
+    [SerializeField] private LevelGraphics[] levels;
+    [SerializeField] private AudioClip[] levelAudioClips;
+
     void Start()
     {
         // Установка времени спавна базовых врагов
@@ -49,7 +52,21 @@ public class Spawn : MonoBehaviour
         GameObject bossPrefab = enemyPrefabs[bossCounter + 1]; // Получаем префаб для текущего босса
         Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-        Instantiate(bossPrefab, randomSpawnPoint.position, Quaternion.identity);
+        var newBoss = Instantiate(bossPrefab, randomSpawnPoint.position, Quaternion.identity);
+        LevelGraphics nextLevel;
+        AudioClip nextClip;
+        if (bossCounter + 1 >= levels.Length)
+        {
+            nextLevel = null;
+            nextClip = null;
+        }
+        else
+        {
+            nextLevel = levels[bossCounter + 1];
+            nextClip = levelAudioClips[bossCounter + 1];
+        }
+        
+        newBoss.GetComponent<Boss>().SetLevel(levels[bossCounter], nextLevel, nextClip);
         bossCounter++; // Увеличиваем счетчик боссов
     }
 

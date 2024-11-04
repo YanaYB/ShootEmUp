@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class HeartMovement : MonoBehaviour
 {
-    public float speed = 3f; // Скорость движения сердечка
+    public float speed = 3f; // РЎРєРѕСЂРѕСЃС‚СЊ РґРІРёР¶РµРЅРёСЏ СЃРµСЂРґРµС‡РєР°
 
     void Update()
     {
-        // Движение сердечка влево
+        // Р”РІРёР¶РµРЅРёРµ СЃРµСЂРґРµС‡РєР° РІР»РµРІРѕ
         transform.position += Vector3.left * speed * Time.deltaTime;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        // Уничтожение сердечка при соприкосновении с границей
+        // РЈРЅРёС‡С‚РѕР¶РµРЅРёРµ СЃРµСЂРґРµС‡РєР° РїСЂРё СЃРѕРїСЂРёРєРѕСЃРЅРѕРІРµРЅРёРё СЃ РіСЂР°РЅРёС†РµР№
         if (collision.CompareTag("Boundary")) 
         {
             Destroy(gameObject);

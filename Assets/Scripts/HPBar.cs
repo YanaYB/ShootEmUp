@@ -34,6 +34,8 @@ public class HPBar : MonoBehaviour
         index = Mathf.Clamp(index, 0, healthPrefabs.Length - 1); // Убедитесь, что индекс не выходит за границы
 
         // Создаем новый префаб изображения
-        currentHealthImage = Instantiate(healthPrefabs[index], healthPrefabs[index].transform.position, Quaternion.identity, transform);
+        Vector3 newPosition = healthPrefabs[index].transform.position;
+        newPosition.x += Camera.main.transform.position.x;
+        currentHealthImage = Instantiate(healthPrefabs[index], newPosition , Quaternion.identity, transform);
     }
 }

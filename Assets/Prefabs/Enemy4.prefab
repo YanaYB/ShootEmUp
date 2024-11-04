@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -5346374960943976225}
   - component: {fileID: 6922524179017222509}
   - component: {fileID: 5179439759912241657}
+  - component: {fileID: 7312871767404251476}
   m_Layer: 6
   m_Name: Enemy4
   m_TagString: Enemy
@@ -188,3 +189,15 @@ MonoBehaviour:
   bloodSplatterPrefab: {fileID: 8586846363676380457, guid: ca41982ad554364418eb7c651424dbde, type: 3}
   damage: 5
   bossLevel: 3
+--- !u!114 &7312871767404251476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781205414065417753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87d4d46e83d22094185c26b9c98f0950, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

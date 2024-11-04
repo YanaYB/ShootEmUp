@@ -10,14 +10,21 @@ public class Parallax : MonoBehaviour
     void Start()
     {
         startpos = transform.position.x;
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        length = GetComponent<SpriteRenderer>().bounds.size.x-0.3f;
+        Debug.Log(length);
     }
     void Update()
     {
         float temp = (cam.transform.position.x * (1 - parallexEffect));
         float dist = (cam.transform.position.x * parallexEffect);
         transform.position = new Vector3(startpos + dist, transform.position.y, transform.position.z);
-        if (temp > startpos + length) startpos += length;
-        else if (temp < startpos - length) startpos -= length;
+        if (temp > startpos + length)
+        {
+            startpos += length * 2;
+        }
+        else if (temp < startpos - length)
+        {
+            startpos -= length * 2;
+        }
     }
 }

@@ -10,6 +10,17 @@ public class Gun : MonoBehaviour
     public GameObject bulletPrefab;  // Префаб пули
     public Transform firePoint;      // Точка, откуда будет вылетать пуля
     public float bulletSpeed = 10f;  // Скорость пули
+    public AudioClip shootSound;     // Аудиоклип звука выстрела
+
+    private AudioSource audioSource; // Компонент для воспроизведения звука
+
+    void Start()
+    {
+        // Инициализируем компонент AudioSource
+        audioSource = GetComponent<AudioSource>();
+
+       
+    }
 
     void Update()
     {
@@ -59,8 +70,11 @@ public class Gun : MonoBehaviour
         {
             rb.velocity = direction * bulletSpeed; // Задаем скорость пули в нужном направлении
         }
+
+        // Воспроизводим звук выстрела
+        if (audioSource != null && shootSound != null)
+        {
+            audioSource.PlayOneShot(shootSound);
+        }
     }
-
-
-
 }

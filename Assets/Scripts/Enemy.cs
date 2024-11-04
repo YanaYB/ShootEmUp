@@ -2,31 +2,31 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public float speed = 2f; // Скорость врага
-    private Transform target; // Цель, к которой движется враг (игрок)
-    public int health = 3; // Здоровье врага
-    public GameObject bloodSplatterPrefab; // Префаб кляксы крови
-    public int damage = 5; // Урон врага
-    public int bossLevel = 0; // Является ли враг боссом
+    public float speed = 2f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    private Transform target; // пїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ)
+    public int health = 3; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public GameObject bloodSplatterPrefab; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public int damage = 5; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public int bossLevel = 0; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform; // Поиск игрока по тегу
+        target = GameObject.FindGameObjectWithTag("Player").transform; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
     }
 
     void Update()
     {
         if (target != null)
         {
-            // Направление движения к игроку
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             Vector3 direction = (target.position - transform.position).normalized;
-            transform.position += direction * speed * Time.deltaTime; // Движение к игроку
+            transform.position += direction * speed * Time.deltaTime; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 
     public void TakeDamage(int damage)
     {
-        health -= damage; // Уменьшение здоровья врага
+        health -= damage; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         if (health <= 0)
         {
             Die();
@@ -37,45 +37,49 @@ public class EnemyMovement : MonoBehaviour
     {
         if (bossLevel > 0)
         {
-            // Появление кляксы крови
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             SpawnBloodSplatter();
         }
         
 
-        Destroy(gameObject); // Уничтожаем врага
+        Destroy(gameObject); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     }
 
     void SpawnBloodSplatter()
     {
         if (bloodSplatterPrefab != null)
         {
-            // Берем позицию префаба кляксы и инстанцируем в ней
-            Instantiate(bloodSplatterPrefab, bloodSplatterPrefab.transform.position, Quaternion.identity);
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ
+            var splatter = Instantiate(bloodSplatterPrefab, bloodSplatterPrefab.transform.position, Quaternion.identity);
+            Vector3 splatterPosition = splatter.transform.position;
+            splatterPosition.x += Camera.main.transform.position.x;
+            splatter.transform.position = splatterPosition;
+            splatter.transform.parent = Camera.main.transform;
         }
     }
 
 
-    // Метод для обработки столкновения с игроком
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
-            Spawn heartSpawner = FindObjectOfType<Spawn>(); // Найти экземпляр Spawn
+            Spawn heartSpawner = FindObjectOfType<Spawn>(); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Spawn
 
             if (playerHealth != null)
             {
                 if (bossLevel>0)
                 {
-                    playerHealth.Die(); // Если враг - босс, игрок умирает
+                    playerHealth.Die(); // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 }
                 else
                 {
-                    playerHealth.TakeDamage(damage); // Наносим урон игроку
-                    playerHealth.ApplyPoison(); // Накладываем эффект отравления
-                    heartSpawner.SpawnHeart(); // Создаем сердечко
+                    playerHealth.TakeDamage(damage); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+                    playerHealth.ApplyPoison(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                    heartSpawner.SpawnHeart(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 }
-                Die(); // Уничтожаем врага после атаки
+                Die(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             }
         }
     }
