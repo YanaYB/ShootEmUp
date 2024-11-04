@@ -8,19 +8,32 @@ public class ChangeScene : MonoBehaviour
     // Метод для начала игры
     public void StartGame()
     {
-        
-        SceneManager.LoadScene(1);
+        Time.timeScale = 1.0f;
+        SceneManager.LoadSceneAsync(1);
     }
 
     // Метод для выхода из игры
     public void ExitGame()
     {
+
         // Если игра запущена в редакторе, то остановить игру
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#else
+        #else
         // Если игра запущена как сборка, то закрыть приложение
         Application.Quit();
-#endif
+        #endif
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadSceneAsync(0);
+    }
+
+    public void Score()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadSceneAsync(4);
     }
 }

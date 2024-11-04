@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     private float nextPoisonDamageTime = 0f;
     public int score = 0; // Текущий счет игрока
     public TextMeshProUGUI scoreText;
+    [SerializeField] private Score currentScore= null;
 
     void Start()
     {
@@ -66,8 +67,10 @@ public class PlayerHealth : MonoBehaviour
 
     public void Die()
     {
+        
         Debug.Log("Игрок погиб!");
-        SceneManager.LoadScene(2); // Загрузка сцены поражения
+        SceneManager.LoadSceneAsync(2); // Загрузка сцены поражения
+
     }
 
     public void AddScore(int amount)
@@ -115,7 +118,10 @@ public class PlayerHealth : MonoBehaviour
     // Метод для проверки победы
     private void ShowVictoryScreen()
     {
+        currentScore.score.Add(score);
+        currentScore.WriteToFile("scoreData.txt");
         Debug.Log("Победа! Все боссы убиты.");
-        SceneManager.LoadScene(3); // Загрузка сцены победы (укажите свой номер сцены)
+        SceneManager.LoadSceneAsync(3); // Загрузка сцены победы (укажите свой номер сцены)
     }
+
 }

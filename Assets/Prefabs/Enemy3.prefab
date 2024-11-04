@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46fe4b5fa093b64893f1e3e8340f5d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 3
   health: 6
   bloodSplatterPrefab: {fileID: 2193911664020742035, guid: b4af9ce8e4d4fe6458d0272c05054120, type: 3}
   damage: 5
